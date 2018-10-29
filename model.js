@@ -9,4 +9,13 @@ function Model() {
     latitude : ko.observable(47.480433),
     longitude : ko.observable(19.067104)
   };
+
+  this.activity = {
+  	confidence : ko.observable(1),
+    automotive : ko.observable(false),
+    cycling : ko.observable(false),
+    stationary : ko.observable(false),
+    running : ko.observable(false),
+    walking : ko.observable(false)
+  };
 }

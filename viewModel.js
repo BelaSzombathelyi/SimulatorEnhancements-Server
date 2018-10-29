@@ -7,6 +7,7 @@ function ViewModel() {
   this.isPlaying = ko.observable(false);
   this.locations = ko.observableArray();
   this.currentLocation = ko.observable();
+  this.currentActivity = ko.observable();
 
   // expose the model as a JSON property
   this.serializedModel = ko.computed(function() {
@@ -21,6 +22,28 @@ function ViewModel() {
 
   this.removeAll = function() {
     that.locations.removeAll();
+  };
+
+  this.sendAutomotive = function() {
+    var activity = {
+      stationary : false,
+      automotive : true,
+      cycling : false,
+      walking : false,
+      running : false
+    };
+    that.currentActivity(activity);
+  };
+
+  this.sendDoNothing = function() {
+    var activity = {
+      stationary : true,
+      automotive : false,
+      cycling : false,
+      walking : false,
+      running : false
+    };
+    that.currentActivity(activity);
   };
 
   this.play = function() {
@@ -47,6 +70,14 @@ function ViewModel() {
   this.currentLocation.subscribe(function(currentLocation) {
     this.model.location.latitude(currentLocation.lat());
     this.model.location.longitude(currentLocation.lng());
+  }, this);
+
+  this.currentActivity.subscribe(function(currentActivity) {
+    this.model.activity.stationary(currentActivity.stationary);
+    this.model.activity.automotive(currentActivity.automotive);
+    this.model.activity.cycling(currentActivity.cycling);
+    this.model.activity.walking(currentActivity.walking);
+    this.model.activity.running(currentActivity.running);
   }, this);
 
   // when the model changes, send thew new data, throttled at 200ms

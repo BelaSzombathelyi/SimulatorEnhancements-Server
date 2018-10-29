@@ -52,6 +52,12 @@
               <button class="btn" data-bind="enable:!isPlaying() && locations().length > 1, click:play">Play</button>
               <button class="btn" data-bind="enable: isPlaying, click:stop">Stop</button>
               <button class="btn" data-bind="enable: locations().length > 0, click:removeAll">Remove All</button>
+            <br/>
+            <b style="width:100%;">Activity</b>
+            <div>
+                <button class="btn" data-bind="click:sendAutomotive">Automotive</button>
+                <button class="btn" data-bind="click:sendDoNothing">Stop</button>
+            </div>
             </div>
           </div>
         </div>
