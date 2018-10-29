@@ -3,7 +3,7 @@ var mapOptions = {
   center: new google.maps.LatLng(viewModel.model.location.latitude(),
     viewModel.model.location.longitude()),
   disableDoubleClickZoom: true,
-  zoom: 10
+  zoom: 15
 };
 var map = new google.maps.Map(document.getElementById("map"), mapOptions);
 map.setOptions({draggableCursor:'crosshair'});
