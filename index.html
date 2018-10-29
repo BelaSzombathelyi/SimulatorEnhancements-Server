@@ -89,7 +89,7 @@
         resize();
       }
       $(window).resize(resizeTabs);
-      $(window).load(resizeTabs);
+      $(window).on('load', resizeTabs);
     </script>
 
     <script src="/model.js"></script>
