@@ -24,26 +24,40 @@ function ViewModel() {
     that.locations.removeAll();
   };
 
-  this.sendAutomotive = function() {
+  this.newActivity = function() {
     var activity = {
+      isFilled : true,
       stationary : false,
-      automotive : true,
-      cycling : false,
-      walking : false,
-      running : false
-    };
-    that.currentActivity(activity);
-  };
-
-  this.sendDoNothing = function() {
-    var activity = {
-      stationary : true,
       automotive : false,
       cycling : false,
       walking : false,
       running : false
     };
+    return activity;
+  };
+
+  this.activitySendAutomotive = function() {
+    var activity = that.newActivity();
+    activity.automotive = true;
     that.currentActivity(activity);
+  };
+
+  this.activitySendDoNothing = function() {
+    var activity = that.newActivity();
+    activity.stationary = true;
+    that.currentActivity(activity);
+  };
+
+  this.activityClear = function() {
+    var activity = that.newActivity();
+    activity.isFilled = false;
+    that.currentActivity(activity);
+  };
+
+  this.activityClearIfNeeded = function() {
+    if (that.model.activity.isFilled) {
+      that.activityClear();
+    }
   };
 
   this.play = function() {
@@ -73,6 +87,7 @@ function ViewModel() {
   }, this);
 
   this.currentActivity.subscribe(function(currentActivity) {
+    this.model.activity.isFilled(currentActivity.isFilled);
     this.model.activity.stationary(currentActivity.stationary);
     this.model.activity.automotive(currentActivity.automotive);
     this.model.activity.cycling(currentActivity.cycling);
@@ -87,6 +102,11 @@ function ViewModel() {
     request.open('POST', '/update', true);
     request.setRequestHeader("Content-Type", "application/json;charset=UTF-8"); 
     request.send(newValue);
+
+    var myVar = setInterval(function() {
+      that.activityClearIfNeeded();
+      clearInterval(myVar);
+    }, 100);
   })
 }
 

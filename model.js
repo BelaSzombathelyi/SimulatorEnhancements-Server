@@ -11,6 +11,7 @@ function Model() {
   };
 
   this.activity = {
+  	isFilled : ko.observable(false),
   	confidence : ko.observable(1),
     automotive : ko.observable(false),
     cycling : ko.observable(false),
